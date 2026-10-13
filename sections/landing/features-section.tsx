@@ -39,10 +39,13 @@ export default function FeaturesSection() {
               </p>
               <Link
                 href={appLink}
-                className="mt-6 flex w-max items-center gap-1 rounded-xl bg-brand-foreground px-5 py-2.5 text-brand font-medium shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] hover:opacity-95"
+                className="group mt-6 flex w-max items-center gap-1 rounded-xl bg-brand-foreground px-5 py-2.5 text-brand font-medium shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] transition-transform duration-300 hover:scale-105"
               >
                 Go to App
-                <ArrowUpRightIcon size={20} />
+                <ArrowUpRightIcon
+                  size={20}
+                  className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
               </Link>
             </AnimatedContent>
           </div>
@@ -51,17 +54,22 @@ export default function FeaturesSection() {
           {landingFeatures.map((feature, index) => (
             <AnimatedContent
               key={index}
-              className={`${feature.cardBg ?? "bg-muted"} flex w-full flex-col items-start rounded-xl p-6 md:sticky md:top-[6.5rem]`}
+              delay={index * 0.08}
+              className="w-full md:sticky md:top-[6.5rem]"
             >
               <div
-                className={`${feature.iconBg ?? "bg-brand"} rounded-md p-2 text-brand-foreground`}
+                className={`${feature.cardBg ?? "bg-muted"} group flex w-full flex-col items-start rounded-xl border border-transparent p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand/30 hover:shadow-[0_16px_40px_-16px_rgb(8_87_254/0.4)]`}
               >
-                <feature.icon size={24} />
+                <div
+                  className={`${feature.iconBg ?? "bg-brand"} rounded-md p-2 text-brand-foreground transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110`}
+                >
+                  <feature.icon size={24} />
+                </div>
+                <p className="mt-4 text-base font-medium">{feature.title}</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {feature.description}
+                </p>
               </div>
-              <p className="mt-4 text-base font-medium">{feature.title}</p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {feature.description}
-              </p>
             </AnimatedContent>
           ))}
         </div>

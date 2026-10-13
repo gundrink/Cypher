@@ -1,5 +1,7 @@
 "use client";
 
+import MarqueeStrip from "@/components/landing/marquee-strip";
+import ScrollProgress from "@/components/landing/scroll-progress";
 import { useWallet } from "@/hooks/useWallet";
 import FaqSection from "@/sections/landing/faq-section";
 import FeaturesSection from "@/sections/landing/features-section";
@@ -15,7 +17,9 @@ export default function Home() {
 
   return (
     <main>
+      <ScrollProgress />
       <HeroSection />
+      <MarqueeStrip />
       <StatsSection />
       <FeaturesSection />
       <FaqSection />

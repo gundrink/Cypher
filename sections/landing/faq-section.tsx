@@ -37,9 +37,9 @@ export default function FaqSection() {
         <div className="mx-auto grid max-w-7xl grid-cols-1 border-x border-border md:grid-cols-2 md:divide-x md:divide-border">
           <div className="space-y-6 p-4 pt-20 md:p-20">
             {landingFaqs.map((faq, index) => (
-              <AnimatedContent key={index}>
+              <AnimatedContent key={index} delay={index * 0.06}>
                 <details
-                  className="group rounded-xl border border-border bg-muted"
+                  className="group rounded-xl border border-border bg-muted transition-colors duration-300 hover:border-brand/30 open:border-brand/30"
                   open={index === 0}
                 >
                   <summary className="flex cursor-pointer select-none items-center justify-between p-6">
@@ -49,7 +49,7 @@ export default function FaqSection() {
                       className="shrink-0 transition-transform group-open:rotate-180"
                     />
                   </summary>
-                  <p className="max-w-md p-6 pt-0 text-sm leading-6 text-muted-foreground">
+                  <p className="max-w-md p-6 pt-0 text-sm leading-6 text-muted-foreground animate-in fade-in-0 slide-in-from-top-2 duration-300">
                     {faq.answer}
                   </p>
                 </details>

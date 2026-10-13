@@ -16,6 +16,9 @@ import {
 
 import AnimatedContent from "@/components/landing/animated-content";
 import CustomIcon from "@/components/landing/custom-icon";
+import FloatingPaymentCards from "@/components/landing/floating-payment-cards";
+import HeroBackground from "@/components/landing/hero-background";
+import ScrambleText from "@/components/landing/scramble-text";
 import { useUsername } from "@/hooks/useUsername";
 import { ROUTES } from "@/lib/constants/routes";
 
@@ -83,9 +86,23 @@ export default function HeroSection() {
     availability === false ||
     isChecking;
 
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent<HTMLElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      e.currentTarget.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+      e.currentTarget.style.setProperty("--my", `${e.clientY - rect.top}px`);
+    },
+    []
+  );
+
   return (
-    <section className="bg-[url('/assets/hero-gradient-bg.svg')] bg-cover bg-center bg-no-repeat md:px-16 lg:px-24 xl:px-32 px-8">
-      <div className="mx-auto flex h-screen max-w-7xl flex-col items-center justify-center">
+    <section
+      onPointerMove={handlePointerMove}
+      className="group/hero relative overflow-hidden bg-[url('/assets/hero-gradient-bg.svg')] bg-cover bg-center bg-no-repeat px-8 md:px-16 lg:px-24 xl:px-32"
+    >
+      <HeroBackground />
+      <FloatingPaymentCards />
+      <div className="relative z-10 mx-auto flex h-screen max-w-7xl flex-col items-center justify-center">
         <AnimatedContent
           reverse
           distance={30}
@@ -103,7 +120,13 @@ export default function HeroSection() {
               alt="user 2"
             />
           </div>
-          <span>Private</span>
+          <span className="flex items-center gap-1.5">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full rounded-full bg-brand opacity-75 motion-safe:animate-ping" />
+              <span className="relative inline-flex size-2 rounded-full bg-brand" />
+            </span>
+            Private
+          </span>
           <div className="mx-1 h-5 w-px rounded-full bg-white" />
           <span>Cash-level privacy on-chain</span>
           <div className="mx-1 h-5 w-px rounded-full bg-white" />
@@ -114,9 +137,14 @@ export default function HeroSection() {
         </AnimatedContent>
         <AnimatedContent distance={30} delay={0.1} className="relative">
           <h1 className="mt-4 max-w-2xl text-center font-urbanist text-5xl font-bold leading-[1.15] md:text-6xl md:leading-[1.18]">
-            Your crypto, truly private.
+            Your crypto,{" "}
+            <ScrambleText
+              text="truly private."
+              delay={500}
+              className="bg-gradient-to-r from-brand via-sky-500 to-indigo-600 bg-[length:200%_auto] bg-clip-text text-transparent motion-safe:animate-gradient-x"
+            />
           </h1>
-          <div className="absolute -top-5 right-13 hidden md:block">
+          <div className="absolute -top-5 right-13 hidden md:block motion-safe:animate-float">
             <CustomIcon icon={SparkleIcon} dir="right" />
           </div>
         </AnimatedContent>
@@ -202,9 +230,13 @@ export default function HeroSection() {
             <button
               type="submit"
               disabled={isButtonDisabled}
-              className="h-12 w-full rounded-xl bg-brand font-semibold text-brand-foreground shadow-[inset_0_2px_4px_rgba(255,255,255,0.2)] hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
+              className="group relative h-12 w-full overflow-hidden rounded-xl bg-brand font-semibold text-brand-foreground shadow-[inset_0_2px_4px_rgba(255,255,255,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[inset_0_2px_4px_rgba(255,255,255,0.2),0_10px_30px_-8px_rgb(8_87_254/0.6)] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-[inset_0_2px_4px_rgba(255,255,255,0.2)]"
             >
-              Claim My Username
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent motion-safe:animate-shine group-disabled:hidden"
+              />
+              <span className="relative">Claim My Username</span>
             </button>
           </form>
         </AnimatedContent>
