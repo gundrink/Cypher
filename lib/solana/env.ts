@@ -42,6 +42,8 @@ export const publicEnv = {
     "NEXT_PUBLIC_CYPHER_PROGRAM_ID",
     process.env.NEXT_PUBLIC_CYPHER_PROGRAM_ID
   ),
+  xUrl: optional(process.env.NEXT_PUBLIC_X_URL),
+  ca: optional(process.env.NEXT_PUBLIC_CA),
 };
 
 export const cypherProgramId = new PublicKey(publicEnv.programId);

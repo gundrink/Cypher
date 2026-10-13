@@ -9,9 +9,11 @@ import { MenuIcon, XIcon } from "lucide-react";
 
 import { landingLinks } from "@/data/landing/links";
 import { ROUTES } from "@/lib/constants/routes";
+import { publicEnv } from "@/lib/solana/env";
 import type { LandingLink } from "@/types/landing";
 
 import AnimatedContent from "./animated-content";
+import { HeaderMarks } from "./header-marks";
 import { Logo } from "../shared/logo";
 
 export default function LandingNavbar() {
@@ -26,14 +28,17 @@ export default function LandingNavbar() {
       <nav className="sticky top-0 left-0 right-0 z-50 border-b border-white/10 bg-white/5 backdrop-blur-xl backdrop-saturate-150 px-4 py-4 transition-all duration-300 md:px-16 lg:px-24 xl:px-32">
         <AnimatedContent reverse>
           <div className="mx-auto flex max-w-7xl items-center justify-between">
-            <Link href="/">
-              <div className="flex items-center gap-4">
-                <Logo />
-                <span className="text-xl font-bold text-foreground">
-                  Cypher
-                </span>
-              </div>
-            </Link>
+            <div className="flex items-center gap-3 md:gap-4">
+              <Link href="/">
+                <div className="flex items-center gap-3 md:gap-4">
+                  <Logo />
+                  <span className="hidden text-xl font-bold text-foreground sm:inline">
+                    Cypher
+                  </span>
+                </div>
+              </Link>
+              <HeaderMarks xUrl={publicEnv.xUrl} ca={publicEnv.ca} />
+            </div>
 
             <div className="hidden md:flex md:gap-3">
               {landingLinks.map((link: LandingLink) => (
