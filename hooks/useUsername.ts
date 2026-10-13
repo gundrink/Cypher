@@ -1,0 +1,49 @@
+import { useState, useCallback } from "react";
+
+import { checkUsernameAvailability } from "@/lib/blockchain";
+
+import { useBaseProvider } from "./useBlockchain";
+
+export function useUsername() {
+  const provider = useBaseProvider();
+  const [isChecking, setIsChecking] = useState(false);
+  const [availability, setAvailability] = useState<boolean | null>(null);
+
+  const checkAvailability = useCallback(
+    async (username: string) => {
+      if (!username.trim()) {
+        setAvailability(null);
+        return null;
+      }
+
+      setIsChecking(true);
+      try {
+        const cleanUsername = username.replace(/^@+/, "");
+
+        if (!provider) {
+          setAvailability(null);
+          return null;
+        }
+
+        const isAvailable = await checkUsernameAvailability(
+          provider,
+          cleanUsername
+        );
+        setAvailability(isAvailable);
+        return isAvailable;
+      } catch {
+        setAvailability(null);
+        return null;
+      } finally {
+        setIsChecking(false);
+      }
+    },
+    [provider]
+  );
+
+  return {
+    checkAvailability,
+    isChecking,
+    availability,
+  };
+}

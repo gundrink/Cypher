@@ -1,0 +1,8 @@
+{
+  "cluster": "devnet",
+  "programId": "9TBbzTqU4PhnteAmzZE4Y9ZcHhrXjhpdkFoQS8LBKdEq",
+  "rpcUrl": "https://api.devnet.solana.com",
+  "splTokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+  "associatedTokenProgram": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+  "referenceUsdc": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+}
