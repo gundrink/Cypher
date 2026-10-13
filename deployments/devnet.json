@@ -1,6 +1,10 @@
 {
   "cluster": "devnet",
   "programId": "9TBbzTqU4PhnteAmzZE4Y9ZcHhrXjhpdkFoQS8LBKdEq",
+  "programData": "F5pe9jXmL1NMWdjmTWYk96p2M48AmkDsshje3nESNUez",
+  "upgradeAuthority": "2tFW6zejpiCGP61Cy6WxD31ahiY2bcaxEHFba5ekX7bZ",
+  "registry": "GzXsPNWNjdLoXkZknzkY4BJJcRb2NWYTvepr5Ja2vH1F",
+  "deploySignature": "3G62PNu6DiFqpDGXMQDA7id2MTD7f9uPVoaQ9WTg9WgnRbFAywoEEWSgzz1zixzzx4cnYZxeng6Mmeu3YDGwomVD",
   "rpcUrl": "https://api.devnet.solana.com",
   "splTokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
   "associatedTokenProgram": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
