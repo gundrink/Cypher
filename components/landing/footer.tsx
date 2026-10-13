@@ -1,10 +1,10 @@
 "use client";
 
-import { InstagramIcon, LinkedinIcon, TwitterIcon } from "lucide-react";
-
 import { Logo } from "@/components/shared/logo";
+import { publicEnv } from "@/lib/solana/env";
 
 import AnimatedContent from "./animated-content";
+import { HeaderMarks } from "./header-marks";
 
 export default function LandingFooter() {
   return (
@@ -24,40 +24,9 @@ export default function LandingFooter() {
               contact us.
             </p>
           </AnimatedContent>
-          <div>
-            <p className="text-base font-semibold uppercase text-foreground">
-              Social
-            </p>
-            <AnimatedContent className="mt-6 flex flex-col gap-3">
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-foreground hover:text-muted-foreground"
-              >
-                <TwitterIcon size={20} />
-                <p>Twitter</p>
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-foreground hover:text-muted-foreground"
-              >
-                <LinkedinIcon size={20} />
-                <p>Linkedin</p>
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-foreground hover:text-muted-foreground"
-              >
-                <InstagramIcon size={20} />
-                <p>Instagram</p>
-              </a>
-            </AnimatedContent>
-          </div>
+          <AnimatedContent>
+            <HeaderMarks xUrl={publicEnv.xUrl} ca={publicEnv.ca} />
+          </AnimatedContent>
         </div>
       </div>
     </footer>
