@@ -15,7 +15,31 @@ export function writeBytes(value: Uint8Array): Buffer {
   return out;
 }
 
-export function assertLength(data: Buffer, offset: number, size: number): void {
+// Browser Buffer polyfills (Next.js ships buffer@5) lack the BigInt read/write methods.
+export function readU64(data: Uint8Array, offset: number): bigint {
+  assertLength(data, offset, 8);
+  return new DataView(
+    data.buffer,
+    data.byteOffset,
+    data.byteLength
+  ).getBigUint64(offset, true);
+}
+
+export function writeU64(value: bigint): Buffer {
+  const out = Buffer.alloc(8);
+  new DataView(out.buffer, out.byteOffset, out.byteLength).setBigUint64(
+    0,
+    value,
+    true
+  );
+  return out;
+}
+
+export function assertLength(
+  data: Uint8Array,
+  offset: number,
+  size: number
+): void {
   if (offset + size > data.length) {
     throw new Error("Account data is truncated.");
   }

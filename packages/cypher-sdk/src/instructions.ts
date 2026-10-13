@@ -4,7 +4,7 @@ import {
   TransactionInstruction,
 } from "@solana/web3.js";
 
-import { writeBytes, writeString } from "./codec";
+import { writeBytes, writeString, writeU64 } from "./codec";
 import { DISC } from "./constants";
 import {
   announcementAddress,
@@ -83,11 +83,9 @@ export function announceInstruction(args: {
   if (args.stealthAddress.length !== 32) {
     throw new Error("Stealth address must be 32 bytes.");
   }
-  const indexBytes = Buffer.alloc(8);
-  indexBytes.writeBigUInt64LE(args.index);
   const data = Buffer.concat([
     Buffer.from(DISC.announce),
-    indexBytes,
+    writeU64(args.index),
     Buffer.from(args.stealthAddress),
     writeBytes(args.ephemeralPublicKey),
     writeBytes(args.metadata),

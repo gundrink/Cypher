@@ -6,6 +6,7 @@ import {
   readBytes,
   readPubkey,
   readString,
+  readU64,
 } from "./codec";
 import { ACCOUNT_SPACE, DISC } from "./constants";
 import { ownerRecordAddress, registryAddress, usernameAddress } from "./pda";
@@ -53,7 +54,7 @@ export function decodeRegistry(data: Buffer | Uint8Array): RegistryAccount {
   offset = admin.offset;
   const bump = view.readUInt8(offset);
   offset += 1;
-  const announcementCount = view.readBigUInt64LE(offset);
+  const announcementCount = readU64(view, offset);
   return { admin: admin.value, bump, announcementCount };
 }
 
@@ -106,9 +107,9 @@ export function decodeAnnouncement(
   offset = ephemeralPublicKey.offset;
   const metadata = readBytes(view, offset);
   offset = metadata.offset;
-  const slot = view.readBigUInt64LE(offset);
+  const slot = readU64(view, offset);
   offset += 8;
-  const index = view.readBigUInt64LE(offset);
+  const index = readU64(view, offset);
   offset += 8;
   return {
     address,

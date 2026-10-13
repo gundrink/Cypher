@@ -10,6 +10,7 @@ import {
   Transaction,
 } from "@solana/web3.js";
 
+import { readU64 } from "./codec";
 import { SOL_FEE_RESERVE } from "./constants";
 
 export interface TokenProgramIds {
@@ -42,7 +43,7 @@ export async function fetchBalance(
     associatedTokenAddress(mint, owner, programs)
   );
   if (!info) return 0n;
-  return Buffer.from(info.data).readBigUInt64LE(64);
+  return readU64(info.data, 64);
 }
 
 export function transferTransaction(args: {

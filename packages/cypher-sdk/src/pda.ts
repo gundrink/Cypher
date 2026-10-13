@@ -1,5 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
 
+import { writeU64 } from "./codec";
+
 export function registryAddress(programId: PublicKey): PublicKey {
   return PublicKey.findProgramAddressSync(
     [Buffer.from("registry")],
@@ -32,10 +34,8 @@ export function announcementAddress(
   sender: PublicKey,
   index: bigint
 ): PublicKey {
-  const indexBytes = Buffer.alloc(8);
-  indexBytes.writeBigUInt64LE(index);
   return PublicKey.findProgramAddressSync(
-    [Buffer.from("announce"), sender.toBuffer(), indexBytes],
+    [Buffer.from("announce"), sender.toBuffer(), writeU64(index)],
     programId
   )[0];
 }
