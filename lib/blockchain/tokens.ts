@@ -3,6 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 import { formatTokenAmount, parseTokenAmount } from "@cypher/sdk";
 
 import type { AvailableToken } from "@/lib/constants/tokens";
+import { getConnection } from "@/lib/solana/connection";
 import { createTransferTransaction, getBalance } from "@/lib/solana/cypher";
 import { referenceUsdcMint } from "@/lib/solana/env";
 
@@ -126,9 +127,20 @@ export async function sendToken(
   if (balance < parsed) {
     throw new Error(`Insufficient ${tokenInfo.symbol} balance`);
   }
+  const to = new PublicKey(toAddress);
+  if (!mint && !(await getConnection().getAccountInfo(to))) {
+    const minimum = BigInt(
+      await getConnection().getMinimumBalanceForRentExemption(0)
+    );
+    if (parsed < minimum) {
+      throw new Error(
+        `Minimum ${formatTokenAmount(minimum, tokenInfo.decimals)} SOL is required to send to a new address`
+      );
+    }
+  }
   const transaction = await createTransferTransaction({
     from,
-    to: new PublicKey(toAddress),
+    to,
     mint,
     amount: parsed,
   });
